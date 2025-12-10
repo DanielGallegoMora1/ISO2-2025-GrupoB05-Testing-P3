@@ -33,8 +33,8 @@ public class App {
     public static Recomendacion recomendar(Persona p, Tiempo t, Map<TipoActividad, Actividad> actividades) throws NingunaActividadException, AforoSuperadoException {
         List<Actividad> recomendaciones = new ArrayList<>();
         Recomendacion r = new Recomendacion(recomendaciones);
-        if(p.puedeRealizarActividadFisica() == false){
-            if(t.getTemperatura() < 0 && t.getHumedad() < 15 && (t.hayPrecipitacion())){
+        if(p.puedeRealizarActividadFisica()){
+            if(t.getTemperatura() < 0 && t.getHumedad() < 15 && t.hayPrecipitacion()){
                 Actividad a = actividades.get(TipoActividad.QUEDARSE_EN_CASA);
                 r.addRecomendacion(a);
             }
@@ -44,7 +44,7 @@ public class App {
                 r.addRecomendacion(a);
             }
         
-            if(t.getTemperatura() >= 0 && t.getTemperatura() <= 25 && !t.hayPrecipitacionAgua()){
+            if(t.getTemperatura() >= 0 && t.getTemperatura() <= 15 && !t.hayPrecipitacionAgua()){
                 Actividad a = actividades.get(TipoActividad.SENDERISMO);
                 Actividad b = actividades.get(TipoActividad.ESCALADA);
                 comprobarAforo(a);
@@ -53,13 +53,13 @@ public class App {
                 r.addRecomendacion(b);
             }
         
-            if(t.getTemperatura() > 15 && t.getTemperatura() <= 25 && !t.hayPrecipitacionAgua() && t.isNublado() && t.getHumedad() <= 60){
+            if(t.getTemperatura() >= 15 && t.getTemperatura() <= 25 && !t.hayPrecipitacionAgua() && !t.isNublado() && t.getHumedad() <= 60){
                 Actividad a = actividades.get(TipoActividad.CATALOGO_PRIMAVERA_VERANO_OTONO);
                 comprobarAforo(a);
                 r.addRecomendacion(a);
             }
         
-            if(t.getTemperatura() > 25 && t.getTemperatura() <= 35 && !t.hayPrecipitacionAgua()){
+            if(t.getTemperatura() >= 25 && t.getTemperatura() <= 35 && !t.hayPrecipitacionAgua()){
                 Actividad a = actividades.get(TipoActividad.GASTRONOMICO);
                 Actividad b = actividades.get(TipoActividad.CULTURAL);
                 comprobarAforo(a);
