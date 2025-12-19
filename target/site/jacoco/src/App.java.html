@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>App.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pr03</a> &gt; <a href="index.source.html" class="el_package">src</a> &gt; <span class="el_source">App.java</span></div><h1>App.java</h1><pre class="source lang-java linenums">package src;
+
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+
+<span class="nc" id="L7">public class App {</span>
+    public static void main(String[] args) {
+<span class="nc" id="L9">        Persona persona = new Persona(true, true);</span>
+<span class="nc" id="L10">        Tiempo tiempo = new Tiempo(25, 50, false, false, true);</span>
+<span class="nc" id="L11">        Map&lt;TipoActividad, Actividad&gt; actividades = Map.of(</span>
+            TipoActividad.ESQUI, new Actividad(TipoActividad.ESQUI, true),
+            TipoActividad.SENDERISMO, new Actividad(TipoActividad.SENDERISMO, false),
+            TipoActividad.ESCALADA, new Actividad(TipoActividad.ESCALADA, true),
+            TipoActividad.CATALOGO_PRIMAVERA_VERANO_OTONO, new Actividad(TipoActividad.CATALOGO_PRIMAVERA_VERANO_OTONO, false),
+            TipoActividad.CULTURAL, new Actividad(TipoActividad.CULTURAL, true),
+            TipoActividad.GASTRONOMICO, new Actividad(TipoActividad.GASTRONOMICO, false),
+            TipoActividad.PLAYA, new Actividad(TipoActividad.PLAYA, true),
+            TipoActividad.PISCINA, new Actividad(TipoActividad.PISCINA, false),
+            TipoActividad.QUEDARSE_EN_CASA, new Actividad(TipoActividad.QUEDARSE_EN_CASA, false)
+        );
+        try {
+<span class="nc" id="L23">            Recomendacion recomendacion = recomendar(persona, tiempo, actividades);</span>
+<span class="nc" id="L24">            System.out.println(&quot;Recomendaciones de actividades:&quot;);</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">            for (Actividad actividad : recomendacion.getRecomendaciones()) {</span>
+<span class="nc" id="L26">                System.out.println(&quot;- &quot; + actividad.getTipo());</span>
+<span class="nc" id="L27">            }</span>
+<span class="nc" id="L28">        } catch (NingunaActividadException | AforoSuperadoException e) {</span>
+<span class="nc" id="L29">            System.out.println(&quot;Error: &quot; + e.getMessage());</span>
+<span class="nc" id="L30">        }</span>
+<span class="nc" id="L31">    }</span>
+
+    public static Recomendacion recomendar(Persona p, Tiempo t, Map&lt;TipoActividad, Actividad&gt; actividades) throws NingunaActividadException, AforoSuperadoException {
+<span class="fc" id="L34">        List&lt;Actividad&gt; recomendaciones = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L35">        Recomendacion r = new Recomendacion(recomendaciones);</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if(p.puedeRealizarActividadFisica()){</span>
+<span class="pc bpc" id="L37" title="1 of 6 branches missed.">            if(t.getTemperatura() &lt; 0 &amp;&amp; t.getHumedad() &lt; 15 &amp;&amp; t.hayPrecipitacion()){</span>
+<span class="fc" id="L38">                Actividad a = actividades.get(TipoActividad.QUEDARSE_EN_CASA);</span>
+<span class="fc" id="L39">                r.addRecomendacion(a);</span>
+            }
+<span class="pc bpc" id="L41" title="1 of 6 branches missed.">            if(t.getTemperatura() &lt; 0 &amp;&amp; t.getHumedad() &lt; 15 &amp;&amp; !(t.hayPrecipitacion())){</span>
+<span class="fc" id="L42">                Actividad a = actividades.get(TipoActividad.ESQUI);</span>
+<span class="fc" id="L43">                comprobarAforo(a);</span>
+<span class="fc" id="L44">                r.addRecomendacion(a);</span>
+            }
+        
+<span class="pc bpc" id="L47" title="1 of 6 branches missed.">            if(t.getTemperatura() &gt;= 0 &amp;&amp; t.getTemperatura() &lt;= 15 &amp;&amp; !t.hayPrecipitacionAgua()){</span>
+<span class="fc" id="L48">                Actividad a = actividades.get(TipoActividad.SENDERISMO);</span>
+<span class="fc" id="L49">                Actividad b = actividades.get(TipoActividad.ESCALADA);</span>
+<span class="fc" id="L50">                comprobarAforo(a);</span>
+<span class="fc" id="L51">                r.addRecomendacion(a);</span>
+<span class="fc" id="L52">                comprobarAforo(b);</span>
+<span class="fc" id="L53">                r.addRecomendacion(b);</span>
+            }
+        
+<span class="pc bpc" id="L56" title="3 of 10 branches missed.">            if(t.getTemperatura() &gt;= 15 &amp;&amp; t.getTemperatura() &lt;= 25 &amp;&amp; !t.hayPrecipitacionAgua() &amp;&amp; !t.isNublado() &amp;&amp; t.getHumedad() &lt;= 60){</span>
+<span class="fc" id="L57">                Actividad a = actividades.get(TipoActividad.CATALOGO_PRIMAVERA_VERANO_OTONO);</span>
+<span class="fc" id="L58">                comprobarAforo(a);</span>
+<span class="fc" id="L59">                r.addRecomendacion(a);</span>
+            }
+        
+<span class="pc bpc" id="L62" title="1 of 6 branches missed.">            if(t.getTemperatura() &gt;= 25 &amp;&amp; t.getTemperatura() &lt;= 35 &amp;&amp; !t.hayPrecipitacionAgua()){</span>
+<span class="fc" id="L63">                Actividad a = actividades.get(TipoActividad.GASTRONOMICO);</span>
+<span class="fc" id="L64">                Actividad b = actividades.get(TipoActividad.CULTURAL);</span>
+<span class="fc" id="L65">                comprobarAforo(a);</span>
+<span class="fc" id="L66">                r.addRecomendacion(a);</span>
+<span class="fc" id="L67">                comprobarAforo(b);</span>
+<span class="fc" id="L68">                r.addRecomendacion(b);</span>
+            }
+        
+<span class="pc bpc" id="L71" title="1 of 4 branches missed.">            if(t.getTemperatura() &gt; 30 &amp;&amp; !t.hayPrecipitacionAgua()){</span>
+<span class="fc" id="L72">                Actividad a = actividades.get(TipoActividad.PLAYA);</span>
+<span class="fc" id="L73">                Actividad b = actividades.get(TipoActividad.PISCINA);</span>
+<span class="fc" id="L74">                r.addRecomendacion(a);</span>
+<span class="fc" id="L75">                comprobarAforo(b);</span>
+<span class="fc" id="L76">                r.addRecomendacion(b);</span>
+<span class="fc" id="L77">            }</span>
+        } else {
+<span class="fc" id="L79">            throw new NingunaActividadException(&quot;La persona no puede realizar actividad física.&quot;);</span>
+        }
+<span class="fc" id="L81">        return r;</span>
+    }
+
+    public static void comprobarAforo(Actividad a) throws AforoSuperadoException {
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (a.isAforoSuperado()) {</span>
+<span class="fc" id="L86">            throw new AforoSuperadoException(&quot;Aforo de la actividad &quot; + a.getTipo() + &quot; superado.&quot;);</span>
+        }
+<span class="fc" id="L88">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

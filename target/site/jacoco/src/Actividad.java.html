@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Actividad.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pr03</a> &gt; <a href="index.source.html" class="el_package">src</a> &gt; <span class="el_source">Actividad.java</span></div><h1>Actividad.java</h1><pre class="source lang-java linenums">package src;
+
+<span class="fc" id="L3">enum TipoActividad {</span>
+<span class="fc" id="L4">    ESQUI,</span>
+<span class="fc" id="L5">    SENDERISMO,</span>
+<span class="fc" id="L6">    ESCALADA,</span>
+<span class="fc" id="L7">    CATALOGO_PRIMAVERA_VERANO_OTONO,</span>
+<span class="fc" id="L8">    CULTURAL,</span>
+<span class="fc" id="L9">    GASTRONOMICO,</span>
+<span class="fc" id="L10">    PLAYA,</span>
+<span class="fc" id="L11">    PISCINA,</span>
+<span class="fc" id="L12">    QUEDARSE_EN_CASA,</span>
+}
+
+public class Actividad {
+    private TipoActividad tipo;
+    private boolean aforoSuperado;
+
+<span class="fc" id="L19">    public Actividad(TipoActividad tipo, boolean aforoSuperado) {</span>
+<span class="fc" id="L20">        this.tipo = tipo;</span>
+<span class="fc" id="L21">        this.aforoSuperado = aforoSuperado;</span>
+<span class="fc" id="L22">    }</span>
+
+    public String getTipo() {
+<span class="fc" id="L25">        String tipoActividad = &quot;&quot;;</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (this.tipo == TipoActividad.ESQUI) {</span>
+<span class="fc" id="L27">            tipoActividad = &quot;ESQUI&quot;;</span>
+        }
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (this.tipo == TipoActividad.SENDERISMO) {</span>
+<span class="fc" id="L30">            tipoActividad = &quot;SENDERISMO&quot;;</span>
+        }
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (this.tipo == TipoActividad.ESCALADA) {</span>
+<span class="fc" id="L33">            tipoActividad = &quot;ESCALADA&quot;;</span>
+        }
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (this.tipo == TipoActividad.CATALOGO_PRIMAVERA_VERANO_OTONO) {</span>
+<span class="fc" id="L36">            tipoActividad = &quot;CATALOGO_PRIMAVERA_VERANO_OTONO&quot;;</span>
+        }
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (this.tipo == TipoActividad.CULTURAL) {</span>
+<span class="fc" id="L39">            tipoActividad = &quot;CULTURAL&quot;;</span>
+        }
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (this.tipo == TipoActividad.GASTRONOMICO) {</span>
+<span class="fc" id="L42">            tipoActividad = &quot;GASTRONOMICO&quot;;</span>
+        }
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (this.tipo == TipoActividad.PLAYA) {</span>
+<span class="fc" id="L45">            tipoActividad = &quot;PLAYA&quot;;</span>
+        }
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (this.tipo == TipoActividad.PISCINA) {</span>
+<span class="fc" id="L48">            tipoActividad = &quot;PISCINA&quot;;</span>
+        }
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (this.tipo == TipoActividad.QUEDARSE_EN_CASA) {</span>
+<span class="fc" id="L51">            tipoActividad = &quot;QUEDARSE_EN_CASA&quot;;</span>
+        }
+<span class="fc" id="L53">        return tipoActividad;</span>
+    }
+
+    public boolean isAforoSuperado() {
+<span class="fc" id="L57">        return this.aforoSuperado;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
